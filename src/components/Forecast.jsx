@@ -1,45 +1,81 @@
-function Forecast(){
-    return (
-        <div>
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-            <div className="city-name">
-                <h2>Kathmandu</h2>
-            </div>
+function Forecast({ weather, toDate }) {
+  const [forecastData, setForecastData] = useState([]);
 
-            <div className="date">
-                <span>Friday, June 2, 2024</span>
-            </div>
+  useEffect(() => {
+    const fetchForecastData = async () => {
+      const apiKey = "a4f791ec3190105377dcfdf1cf72f27d";
+      const url = `https://api.openweathermap.org/data/2.5/forecast?q=${weather.city.name}&appid=${apiKey}&units=metric`;
 
-            <div className="temp">
-                <img src="" alt="" />
-                <span>24 <sup>°C|°F</sup></span>
-            </div>
+      try {
+        const response = await axios.get(url);
+        setForecastData(response.data);
+      } catch (error) {
+        console.error('Error fetching forecast data:', error);
+      }
+    }
 
-            <p>Clear Sky</p>
+    if (weather.city) {
+      fetchForecastData();
+    }
+  }, [weather.city]);
 
-            <div className="weather-info">
-                <div className="col">
-                    {/* icon */}
-                    <div>
-                        <p>Wind</p>
-                    </div>
-                </div>
+  const convertToFahrenheit = (celsius) => {
+    return (celsius * 9/5) + 32;
+  };
 
-                <div className="col">
-                    {/* icon */}
-                    <div>
-                        <p>Humidity</p>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div>
+      <div className="city-name">
+        <h2>{weather.city.name},<span>{weather.city.country}</span></h2>
+      </div>
 
-            <div className="forecast">
-                <h3>5 day ForeCast</h3>
-                <div className="forecast-container">
-                    
-                </div>
-            </div>
+      <div className="date">
+        <span>{toDate()}</span>
+      </div>
+
+      <div className="temp">
+        <img src="" alt="" />
+        <span>
+          {weather.list[0].main.temp} <sup>°C</sup> | {convertToFahrenheit(weather.list[0].main.temp).toFixed(2)} <sup>°F</sup>
+        </span>
+      </div>
+
+      <p>{weather.list[0].weather[0].description}</p>
+
+      <div className="weather-info">
+        <div className="col">
+          <div>
+            <p>Wind: {weather.list[0].wind.speed} m/s</p>
+          </div>
         </div>
-    )
+
+        <div className="col">
+          <div>
+            <p>Humidity: {weather.list[0].main.humidity}%</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="forecast">
+        <h3>5 day Forecast</h3>
+        <div className="forecast-container">
+          {forecastData.list && forecastData.list.slice(0,5).map((data, index) => {
+            return (
+                <div className="forecast-card" key={index}>
+                    <img src="" alt="" />
+                    <p>{data.main.temp} <sup>°C</sup> | {convertToFahrenheit(data.main.temp).toFixed(2)} <sup>°F</sup></p>
+                    <p>{data.weather[0].description}</p>
+                    <p>{new Date(data.dt_txt).toLocaleDateString('en-US', { weekday: 'long' })}</p>
+                </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
 }
+
 export default Forecast;
