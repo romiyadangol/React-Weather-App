@@ -8,18 +8,11 @@ function Forecast({ weather, toDate }) {
     const fetchForecastData = async () => {
       const apiKey = "a4f791ec3190105377dcfdf1cf72f27d";
       const url = `https://api.openweathermap.org/data/2.5/forecast?q=${weather.city.name}&appid=${apiKey}&units=metric`;
-
-      try {
         const response = await axios.get(url);
         setForecastData(response.data);
-      } catch (error) {
-        console.error('Error fetching forecast data:', error);
-      }
-    }
-
-    if (weather.city) {
+        console.log(response.data);
+      } 
       fetchForecastData();
-    }
   }, [weather.city]);
 
   const convertToFahrenheit = (celsius) => {

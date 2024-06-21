@@ -12,12 +12,27 @@ function App() {
 
   const toDate = () => {
     const months = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      "January",
+      "February", 
+      "March", 
+      "April", 
+      "May", 
+      "June",
+      "July", 
+      "August", 
+      "September", 
+      "October", 
+      "November", 
+      "December"
     ];
     const days = [
-      "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
-      "Friday", "Saturday"
+      "Sunday", 
+      "Monday", 
+      "Tuesday", 
+      "Wednesday", 
+      "Thursday",
+      "Friday", 
+      "Saturday"
     ];
     const currentDate = new Date();
     const date = `${days[currentDate.getDay()]} ${currentDate.getDate()} ${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
@@ -28,19 +43,12 @@ function App() {
     setWeather({ ...weather, loading: true });
     const apiKey = "a4f791ec3190105377dcfdf1cf72f27d";
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-
-    try {
       const response = await axios.get(url);
       setWeather({
         loading: false,
         data: response.data
       });
-    } catch (error) {
-      console.error('Error fetching forecast data:', error);
-      setWeather({ ...weather, loading: false });
-    }
-  }
-
+  } 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       fetchWeather(value);
