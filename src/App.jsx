@@ -3,6 +3,8 @@ import Forecast from './components/Forecast';
 import Search from './components/Search';
 import axios from 'axios';
 
+import './assets/css/index.css';
+
 function App() {
   const [value, setValue] = useState('');
   const [weather, setWeather] = useState({
@@ -67,6 +69,7 @@ function App() {
 
   return (
     <>
+      <div className="app">
       <Search
         placeholder="Enter City Name..."
         value={value}
@@ -80,6 +83,7 @@ function App() {
       ) : (
         !weather.loading && <h1>City Not Found</h1>
       )}
+      </div>
     </>
   )
 }

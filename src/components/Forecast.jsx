@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import ReactAnimatedWeather from "react-animated-weather";
+
+import '../assets/css/forecast.css';
 
 function Forecast({ weather, toDate }) {
   const [forecastData, setForecastData] = useState([]);
@@ -19,6 +22,10 @@ function Forecast({ weather, toDate }) {
     return (celsius * 9/5) + 32;
   };
 
+  const getIconUrl = (iconCode) => {
+    return `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+  };
+
   return (
     <div>
       <div className="city-name">
@@ -30,7 +37,6 @@ function Forecast({ weather, toDate }) {
       </div>
 
       <div className="temp">
-        <img src="" alt="" />
         <span>
           {weather.list[0].main.temp} <sup>°C</sup> | {convertToFahrenheit(weather.list[0].main.temp).toFixed(2)} <sup>°F</sup>
         </span>
@@ -40,26 +46,27 @@ function Forecast({ weather, toDate }) {
 
       <div className="weather-info">
         <div className="col">
-          <div>
+        <ReactAnimatedWeather icon="WIND" size="40"/>
             <p>Wind: {weather.list[0].wind.speed} m/s</p>
-          </div>
         </div>
 
         <div className="col">
-          <div>
+        <ReactAnimatedWeather icon="RAIN" size="40"/>
             <p>Humidity: {weather.list[0].main.humidity}%</p>
-          </div>
         </div>
       </div>
 
       <div className="forecast">
-        <h3>5 day Forecast</h3>
+        <h3>5 day Forecast:</h3>
         <div className="forecast-container">
           {forecastData.list && forecastData.list.slice(0,5).map((data, index) => {
             return (
                 <div className="forecast-card" key={index}>
-                    <img src="" alt="" />
-                    <p>{data.main.temp} <sup>°C</sup> | {convertToFahrenheit(data.main.temp).toFixed(2)} <sup>°F</sup></p>
+                    <img 
+                      src={getIconUrl(data.weather[0].icon)} 
+                      alt={data.weather[0].description} 
+                    />
+                    <p>{data.main.temp} <sup>°C</sup></p>
                     <p>{data.weather[0].description}</p>
                     <p>{new Date(data.dt_txt).toLocaleDateString('en-US', { weekday: 'long' })}</p>
                 </div>

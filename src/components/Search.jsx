@@ -1,3 +1,4 @@
+import '../assets/css/search.css';
 function Search({ placeholder, value, onChange, onKeyPress, onClick }) {
   return (
     <div className="search-container">
@@ -9,7 +10,7 @@ function Search({ placeholder, value, onChange, onKeyPress, onClick }) {
         onChange={onChange}
         onKeyPress={onKeyPress}
       />
-      <button onClick={onClick}>Search</button>
+      <button className="search-btn" onClick={onClick}>Search</button>
     </div>
   );
 }
