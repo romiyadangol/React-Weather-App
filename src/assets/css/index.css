@@ -22,3 +22,74 @@ body{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px 15px;
 }
+
+@media screen and (min-width: 768px) {
+    .app {
+      margin-top: 50px;
+      margin-bottom: 100px; 
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .app {
+      width: 80%;
+      padding: 20px;
+      margin-bottom: 80px;
+    }
+    .search-city{
+        width: 60%;
+    }
+    .search-btn{
+        width: 20%;
+        height: 40px;
+        font-size: 20px;
+    }
+    .temp{
+        font-size: 48px;
+    }
+    .weather-info{
+        font-size: 18px;
+    }
+    .col p{
+        margin-left: 5px;
+    }
+    .forecast-container {
+        margin-top: 20px;
+    }
+    .forecast-card{
+        width: 40%;
+    }
+}
+@media screen and (max-width: 480px){
+    .app{
+        width: 80%;
+        padding: 10px;
+        margin-bottom: 100px;
+    }
+    .search-city{
+        width: 60%;
+    }
+    .search-btn{
+        width: 20%;
+        height: 40px;
+        font-size: 20px;
+    }
+    .temp{
+        font-size: 36px;
+    }
+    .weather-info{
+        font-size: 10px;
+    }
+    .col{
+        margin: 0 10px;
+    }
+    .forecast-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5px;
+    }
+    .forecast-card{
+        width: 70%;
+    }
+}
