@@ -45,7 +45,7 @@ function App() {
     setWeather({ ...weather, loading: true });
     const apiKey = "a4f791ec3190105377dcfdf1cf72f27d";
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-      const response = await axios.get(url);
+    const response = await axios.get(url);
       setWeather({
         loading: false,
         data: response.data

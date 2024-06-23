@@ -68,7 +68,6 @@ function Forecast({ weather, toDate }) {
                     />
                     <p>{data.main.temp} <sup>°C</sup></p>
                     <p>{data.weather[0].description}</p>
-                    <p>{new Date(data.dt_txt).toLocaleDateString('en-US', { weekday: 'long' })}</p>
                 </div>
             )
           })}
